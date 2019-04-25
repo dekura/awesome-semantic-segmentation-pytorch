@@ -121,3 +121,6 @@ sbu/
 eval/
 
 # overfitting test
+
+# ignore vscode settings
+.vscode/

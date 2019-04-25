@@ -1,4 +1,10 @@
 """MSCOCO Semantic Segmentation pretraining for VOC."""
+"""Here is Annother implent fot mask"""
+"""We only take an bit of mask to train"""
+"""The feature is like"""
+""" *  *  * """
+"""    *    """
+""" *  *  * """
 import os
 import pickle
 import torch
