@@ -27,16 +27,16 @@ inline void leaky_relu_backward_impl(T *z, T *dz, float slope, int64_t count) {
 
 }
 
-void LeakyRelu_Forward_CUDA(at::Tensor z, float slope) {
-  at::leaky_relu_(z, slope);
-}
+// void LeakyRelu_Forward_CUDA(at::Tensor z, float slope) {
+//   at::leaky_relu_(z, slope);
+// }
 
-void LeakyRelu_Backward_CUDA(at::Tensor z, at::Tensor dz, float slope) {
-  int64_t count = z.numel();
+// void LeakyRelu_Backward_CUDA(at::Tensor z, at::Tensor dz, float slope) {
+//   int64_t count = z.numel();
 
-  AT_DISPATCH_FLOATING_TYPES(z.type(), "LeakyRelu_Backward_CUDA", ([&] {
-    leaky_relu_backward_impl<scalar_t>(z.data<scalar_t>(), dz.data<scalar_t>(), slope, count);
-  }));
+//   AT_DISPATCH_FLOATING_TYPES(z.type(), "LeakyRelu_Backward_CUDA", ([&] {
+//     leaky_relu_backward_impl<scalar_t>(z.data<scalar_t>(), dz.data<scalar_t>(), slope, count);
+//   }));
   /*
   // unstable after scaling
   at::leaky_relu_(z, 1.0 / slope);
