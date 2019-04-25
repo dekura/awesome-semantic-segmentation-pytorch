@@ -138,9 +138,9 @@ class Trainer(object):
         self.criterion = MixSoftmaxCrossEntropyLoss(args.aux, args.aux_weight, ignore_label=-1).to(args.device)
 
         # for multi-GPU
-        # if torch.cuda.is_available():
-        #     self.model = DataParallelModel(self.model).cuda()
-        #     self.criterion = DataParallelCriterion(self.criterion).cuda()
+        if torch.cuda.is_available():
+            self.model = DataParallelModel(self.model).cuda()
+            self.criterion = DataParallelCriterion(self.criterion).cuda()
 
         # resume checkpoint if needed
         if args.resume:
