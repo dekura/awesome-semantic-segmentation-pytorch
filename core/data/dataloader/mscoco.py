@@ -91,7 +91,7 @@ class COCOSegmentation(SegmentationDataset):
         # general resize, normalize and toTensor
         if self.transform is not None:
             img = self.transform(img)
-        return img, mask, os.path.basename(self.ids[index])
+        return img, mask, os.path.basename(img_metadata['coco_url'])
 
     def _mask_transform(self, mask):
         return torch.LongTensor(np.array(mask).astype('int32'))
@@ -100,7 +100,7 @@ class COCOSegmentation(SegmentationDataset):
         mask = np.zeros((h, w), dtype=np.uint8)
         coco_mask = self.coco_mask
         for instance in target:
-            rle = coco_mask.frPyObjects(instance['Segmentation'], h, w)
+            rle = coco_mask.frPyObjects(instance['segmentation'], h, w)
             m = coco_mask.decode(rle)
             cat = instance['category_id']
             if cat in self.CAT_LIST:
@@ -132,6 +132,9 @@ class COCOSegmentation(SegmentationDataset):
         with open(ids_file, 'wb') as f:
             pickle.dump(new_ids, f)
         return new_ids
+
+    def __len__(self):
+        return len(self.ids)
 
     @property
     def classes(self):
